@@ -1,1 +1,4 @@
-*.idea/
+.idea/
+*.bkp
+vendor
+bin/
