@@ -14,6 +14,14 @@ func prefixSum(input []int) []int {
 	return output
 }
 
+func rangePrefixSum(prefixSum []int, l, r int) int {
+	if l == 0 {
+		return prefixSum[r]
+	}
+
+	return prefixSum[r] - prefixSum[l-1]
+}
+
 func main() {
 
 }
