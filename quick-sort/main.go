@@ -1,35 +1,39 @@
 package quick_sort
 
 func quickSort(arr []int) {
+	qs(arr, 0, len(arr)-1)
+	return
+}
 
+func qs(arr []int, low, hi int) {
+	if low >= hi {
+		return
+	}
+
+	partitionIdx := partition(arr, low, hi)
+
+	qs(arr, low, partitionIdx-1)
+	qs(arr, partitionIdx+1, hi)
 }
 
 func partition(arr []int, low, hi int) int {
-	pivot := arr[len(arr)/2]
-	idx := -1
+	pivotIdx := hi
+	pivot := arr[pivotIdx]
+	idx := low - 1
 	tmp := 0
 
 	for i := low; i < hi; i++ {
 		if arr[i] <= pivot {
 			idx++
-			tmp = arr[idx]
-			arr[idx] = arr[i]
-			arr[i] = tmp
+			tmp = arr[i]
+			arr[i] = arr[idx]
+			arr[idx] = tmp
 		}
 	}
 
 	idx++
-	tmp = arr[idx]
+	arr[pivotIdx] = arr[idx]
 	arr[idx] = pivot
-	arr[len(arr)/2] = tmp
 
-	return 0
-}
-
-func qs(arr []int, low, hi int) {
-
-}
-
-func getPivot(arr []int) int {
-	return len(arr) / 2
+	return idx
 }
