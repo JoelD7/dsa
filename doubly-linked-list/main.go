@@ -91,6 +91,10 @@ func (d *DoublyLinkedList) RemoveAt(index int) (int, error) {
 		return 0, errListIsEmpty
 	}
 
+	if index >= d.length {
+		return 0, errIndexTooLarge
+	}
+
 	d.length--
 
 	cur := d.head
@@ -98,8 +102,16 @@ func (d *DoublyLinkedList) RemoveAt(index int) (int, error) {
 		cur = cur.next
 	}
 
+	if cur == d.head {
+		d.head = cur.next
+		return cur.val, nil
+	}
+
 	curPrev := cur.prev
-	curPrev.next = cur.next
+	if curPrev != nil {
+		curPrev.next = cur.next
+	}
+
 	cur.next.prev = curPrev
 
 	return cur.val, nil
@@ -132,9 +144,8 @@ func (d *DoublyLinkedList) Prepend(item int) error {
 		return nil
 	}
 
-	curHead := &Node{d.head.val, d.head.prev, d.head.next}
-	newItem := &Node{item, nil, curHead}
-	curHead.prev = newItem
+	newItem := &Node{item, nil, d.head}
+	d.head.prev = newItem
 	d.head = newItem
 
 	return nil
@@ -164,6 +175,18 @@ func (d *DoublyLinkedList) Print() string {
 	for i := 0; i < d.length && cur != nil; i++ {
 		s += strconv.FormatInt(int64(cur.val), 10)
 		cur = cur.next
+	}
+
+	return s
+}
+
+func (d *DoublyLinkedList) ReversePrint() string {
+	cur := d.tail
+	var s string
+
+	for i := 0; i < d.length && cur != nil; i++ {
+		s += strconv.FormatInt(int64(cur.val), 10)
+		cur = cur.prev
 	}
 
 	return s
