@@ -145,6 +145,10 @@ func (d *DoublyLinkedList) Get(index int) (int, error) {
 		return 0, errListIsEmpty
 	}
 
+	if index >= d.length {
+		return 0, errIndexTooLarge
+	}
+
 	cur := d.head
 	for i := 0; i < index && cur != nil; i++ {
 		cur = cur.next
