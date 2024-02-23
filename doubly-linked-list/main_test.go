@@ -76,16 +76,19 @@ func TestInsertAt(t *testing.T) {
 	err = l.InsertAt(4, 1)
 	c.Nil(err)
 	c.Equal("1423", l.Print())
+	c.Equal("3241", l.ReversePrint())
 	c.Equal(4, l.length)
 
 	err = l.InsertAt(0, 2)
 	c.Nil(err)
 	c.Equal("14023", l.Print())
+	c.Equal("32041", l.ReversePrint())
 	c.Equal(5, l.length)
 
 	err = l.InsertAt(6, 0)
 	c.Nil(err)
 	c.Equal("614023", l.Print())
+	c.Equal("320416", l.ReversePrint())
 	c.Equal(6, l.length)
 
 	err = l.InsertAt(7, 7)
@@ -107,6 +110,7 @@ func TestRemoveAt(t *testing.T) {
 	c.Nil(err)
 	c.Equal(2, item)
 	c.Equal("13", l.Print())
+	c.Equal("31", l.ReversePrint())
 	c.Equal(2, l.length)
 
 	item, err = l.RemoveAt(0)
@@ -126,4 +130,32 @@ func TestRemoveAt(t *testing.T) {
 
 	item, err = l.RemoveAt(0)
 	c.ErrorIs(err, errListIsEmpty)
+}
+
+func TestRemove(t *testing.T) {
+	c := require.New(t)
+
+	l := NewDoublyLinkedList()
+	err := l.Append(1)
+	c.Nil(err)
+	err = l.Append(2)
+	c.Nil(err)
+	err = l.Append(3)
+	c.Nil(err)
+
+	item, err := l.Remove(2)
+	c.Nil(err)
+	c.Equal(2, item)
+	c.Equal("13", l.Print())
+	c.Equal("31", l.ReversePrint())
+
+	item, err = l.Remove(1)
+	c.Nil(err)
+	c.Equal(1, item)
+	c.Equal("3", l.Print())
+
+	item, err = l.Remove(3)
+	c.Nil(err)
+	c.Equal(3, item)
+	c.Equal("", l.Print())
 }

@@ -79,8 +79,16 @@ func (d *DoublyLinkedList) Remove(item int) (int, error) {
 		cur = cur.next
 	}
 
+	if cur == d.head {
+		d.head = cur.next
+		return cur.val, nil
+	}
+
 	curPrev := cur.prev
-	curPrev.next = cur.next
+	if curPrev != nil {
+		curPrev.next = cur.next
+	}
+
 	cur.next.prev = curPrev
 
 	return cur.val, nil
