@@ -115,21 +115,9 @@ func (d *DoublyLinkedList) Append(item int) error {
 		return nil
 	}
 
-	var curTail *Node
-
-	if d.length == 2 {
-		curTail = &Node{d.tail.val, d.head, nil}
-	} else {
-		curTail = &Node{d.tail.val, d.tail.prev, nil}
-	}
-
-	newItem := &Node{item, curTail, nil}
-	curTail.next = newItem
+	newItem := &Node{item, d.tail, nil}
+	d.tail.next = newItem
 	d.tail = newItem
-
-	if d.length == 2 {
-		d.head.next = newItem
-	}
 
 	return nil
 }
