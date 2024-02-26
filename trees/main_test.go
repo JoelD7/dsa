@@ -23,6 +23,15 @@ func TestInOrder(t *testing.T) {
 	c.Equal([]int{5, 23, 4, 7, 18, 3, 21}, path)
 }
 
+func TestPostOrder(t *testing.T) {
+	c := require.New(t)
+
+	root := getTestTree()
+
+	path := postOrderSearch(root)
+	c.Equal([]int{5, 4, 23, 18, 21, 3, 7}, path)
+}
+
 func getTestTree() *Node {
 	root := NewNode(7)
 	root.left = &Node{

@@ -45,3 +45,19 @@ func inOrderWalk(cur *Node, path []int) []int {
 
 	return path
 }
+
+func postOrderSearch(root *Node) []int {
+	return postOrderWalk(root, []int{})
+}
+
+func postOrderWalk(cur *Node, path []int) []int {
+	if cur == nil {
+		return path
+	}
+
+	path = postOrderWalk(cur.left, path)
+	path = postOrderWalk(cur.right, path)
+	path = append(path, cur.val)
+
+	return path
+}
