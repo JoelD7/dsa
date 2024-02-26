@@ -8,6 +8,22 @@ import (
 func TestPreOrder(t *testing.T) {
 	c := require.New(t)
 
+	root := getTestTree()
+
+	path := preOrderSearch(root)
+	c.Equal([]int{7, 23, 5, 4, 3, 18, 21}, path)
+}
+
+func TestInOrder(t *testing.T) {
+	c := require.New(t)
+
+	root := getTestTree()
+
+	path := inOrderSearch(root)
+	c.Equal([]int{5, 23, 4, 7, 18, 3, 21}, path)
+}
+
+func getTestTree() *Node {
 	root := NewNode(7)
 	root.left = &Node{
 		val: 23,
@@ -36,6 +52,5 @@ func TestPreOrder(t *testing.T) {
 		},
 	}
 
-	path := preOrderSearch(root)
-	c.Equal([]int{7, 23, 5, 4, 3, 18, 21}, path)
+	return root
 }

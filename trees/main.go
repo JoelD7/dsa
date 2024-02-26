@@ -15,17 +15,33 @@ func NewNode(root int) *Node {
 }
 
 func preOrderSearch(root *Node) []int {
-	return walk(root, []int{})
+	return preOrderWalk(root, []int{})
 }
 
-func walk(cur *Node, path []int) []int {
+func preOrderWalk(cur *Node, path []int) []int {
 	if cur == nil {
 		return path
 	}
 	path = append(path, cur.val)
 
-	path = walk(cur.left, path)
-	path = walk(cur.right, path)
+	path = preOrderWalk(cur.left, path)
+	path = preOrderWalk(cur.right, path)
+
+	return path
+}
+
+func inOrderSearch(root *Node) []int {
+	return inOrderWalk(root, []int{})
+}
+
+func inOrderWalk(cur *Node, path []int) []int {
+	if cur == nil {
+		return path
+	}
+
+	path = inOrderWalk(cur.left, path)
+	path = append(path, cur.val)
+	path = inOrderWalk(cur.right, path)
 
 	return path
 }
