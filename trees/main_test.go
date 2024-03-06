@@ -32,6 +32,14 @@ func TestPostOrder(t *testing.T) {
 	c.Equal([]int{5, 4, 23, 18, 21, 3, 7}, path)
 }
 
+func TestBreadthFirstSearch(t *testing.T) {
+	c := require.New(t)
+
+	//7,23,3,5,4,18,21
+	root := getTestTree()
+	c.Equal([]int{7, 23, 3, 5, 4, 18, 21}, BFS(root))
+}
+
 func getTestTree() *Node {
 	root := NewNode(7)
 	root.left = &Node{
